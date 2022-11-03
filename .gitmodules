@@ -1,0 +1,3 @@
+[submodule "cri-dockerd"]
+	path = cri-dockerd
+	url = https://github.com/Mirantis/cri-dockerd.git
