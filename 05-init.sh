@@ -10,10 +10,18 @@
 #Copyright (C):        2022 All rights reserved
 #********************************************************************
 
+IP=${1}
+if [ -z "$IP" ]; then
+  echo "
+  ERROR: 使用以下格式 
+    $0 your_local_ip
+  "; exit
+fi
 if ! kubectl cluster-info; then
 echo 'Environment="KUBELET_EXTRA_ARGS=--fail-swap-on=false"' >> /etc/systemd/system/kubelet.service.d/10-kubeadm.conf
 systemctl daemon-reload
 
+sed -i "s@LOCAL_IP@$IP@g" kubeadm.conf
 kubeadm init --config ./kubeadm.conf --ignore-preflight-errors=swap
 
 fi 
