@@ -27,7 +27,14 @@ EOF
   apt install kubeadm=1.25.3-00 kubectl=1.25.3-00 kubelet=1.25.3-00 -y
   color "安装kubernetes" 0
 else
-  echo "未实现centos的安装"
-  color "安装kubernetes" 1
+  echo '
+[kubernetes]
+name=kubernetes
+baseurl=https://mirrors.tuna.tsinghua.edu.cn/kubernetes/yum/repos/kubernetes-el7-$basearch
+enabled=1
+gpgcheck=0
+' > /etc/yum.repos.d/kubernetes.repo
+  yum install kubeadm-1.25.3-0 kubectl-1.25.3-0 kubelet-1.25.3-0 -y
+  color "安装kubernetes" 0
 fi
 
